@@ -20,8 +20,6 @@ yarn add react-native-markdown-display@npm:@jonasmerlin/react-native-markdown-di
 npm install -S react-native-markdown-display@npm:@jonasmerlin/react-native-markdown-display
 ```
 
-#### 
-
 ### Get Started
 
 ```jsx
