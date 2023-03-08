@@ -1,4 +1,4 @@
-# React Native Markdown Display [![npm version](https://badge.fury.io/js/react-native-markdown-display.svg)](https://badge.fury.io/js/react-native-markdown-display) [![Known Vulnerabilities](https://snyk.io/test/github/iamacup/react-native-markdown-display/badge.svg)](https://snyk.io/test/github/iamacup/react-native-markdown-display)
+# React Native Markdown Display [![npm version](https://badge.fury.io/js/@jonasmerlin%2Freact-native-markdown-display.svg)](https://badge.fury.io/js/@jonasmerlin%2Freact-native-markdown-display) [![Known Vulnerabilities](https://snyk.io/test/github/jonasmerlin/react-native-markdown-display/badge.svg)](https://snyk.io/test/github/jonasmerlin/react-native-markdown-display)
 
 **This is a fork of [iamacup/react-native-markdown-display](https://github.com/iamacup/react-native-markdown-display) that increases the depended upon versions of react to 18 and react-native to v0.68. This makes it compatible with Expo SDK 46**
 
@@ -12,12 +12,12 @@ This is intended to be a replacement for react-native-markdown-renderer, with a 
 
 #### Yarn
 ```npm
-yarn add react-native-markdown-display
+yarn add react-native-markdown-display@npm:@jonasmerlin/react-native-markdown-display
 ```
 
 #### NPM
 ```npm
-npm install -S react-native-markdown-display
+npm install -S react-native-markdown-display@npm:@jonasmerlin/react-native-markdown-display
 ```
 
 ### Get Started
