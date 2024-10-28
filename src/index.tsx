@@ -1,15 +1,15 @@
 import MarkdownIt from "markdown-it";
-import type {ReactNode} from "react";
-import React, {useMemo} from "react";
-import type {TextStyle, ViewStyle} from "react-native";
-import {StyleSheet, Text} from "react-native";
+import type { ReactNode } from "react";
+import React, { useMemo } from "react";
+import type { TextStyle, ViewStyle } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 import AstRenderer from "./lib/AstRenderer";
 import parser from "./lib/parser";
-import type {RenderRules} from "./lib/renderRules";
+import type { RenderRules } from "./lib/renderRules";
 import renderRules from "./lib/renderRules";
-import {styles} from "./lib/styles";
-import type {ASTNode} from "./lib/types";
+import { styles } from "./lib/styles";
+import type { ASTNode } from "./lib/types";
 import removeTextStyleProps from "./lib/util/removeTextStyleProps";
 
 function getStyle<T>(
@@ -127,10 +127,10 @@ export interface MarkdownProps {
 
 const Markdown: React.FC<
   MarkdownProps & {
-    maxTopLevelChildren: number | null;
-    topLevelMaxExceededItem: React.ReactNode;
-    allowedImageHandlers: string[];
-    defaultImageHandler: string;
+    maxTopLevelChildren?: number | null;
+    topLevelMaxExceededItem?: React.ReactNode;
+    allowedImageHandlers?: string[];
+    defaultImageHandler?: string;
   }
 > = React.memo(
   ({
@@ -155,10 +155,10 @@ const Markdown: React.FC<
     defaultImageHandler = "https://",
     debugPrintTree = false,
   }: MarkdownProps & {
-    maxTopLevelChildren: number | null;
-    topLevelMaxExceededItem: React.ReactNode;
-    allowedImageHandlers: string[];
-    defaultImageHandler: string;
+    maxTopLevelChildren?: number | null;
+    topLevelMaxExceededItem?: React.ReactNode;
+    allowedImageHandlers?: string[];
+    defaultImageHandler?: string;
   }) => {
     const momoizedRenderer = useMemo(
       () =>
@@ -200,15 +200,17 @@ const Markdown: React.FC<
 
 export default Markdown;
 
-export {default as MarkdownIt} from "markdown-it";
-export {default as AstRenderer} from "./lib/AstRenderer";
-export {default as textStyleProps} from "./lib/data/textStyleProps";
-export {default as parser} from "./lib/parser";
-export {default as renderRules} from "./lib/renderRules";
-export {styles} from "./lib/styles";
-export {default as getUniqueID} from "./lib/util/getUniqueID";
-export {default as hasParents} from "./lib/util/hasParents";
-export {default as openUrl} from "./lib/util/openUrl";
-export {default as removeTextStyleProps} from "./lib/util/removeTextStyleProps";
-export {stringToTokens} from "./lib/util/stringToTokens";
-export {default as tokensToAST} from "./lib/util/tokensToAST";
+export { default as MarkdownIt } from "markdown-it";
+export { default as AstRenderer } from "./lib/AstRenderer";
+export { default as textStyleProps } from "./lib/data/textStyleProps";
+export { default as parser } from "./lib/parser";
+export { default as renderRules } from "./lib/renderRules";
+export { styles } from "./lib/styles";
+export type { ASTNode } from "./lib/types";
+export { default as getUniqueID } from "./lib/util/getUniqueID";
+export { default as hasParents } from "./lib/util/hasParents";
+export { default as openUrl } from "./lib/util/openUrl";
+export { default as removeTextStyleProps } from "./lib/util/removeTextStyleProps";
+export { stringToTokens } from "./lib/util/stringToTokens";
+export { default as tokensToAST } from "./lib/util/tokensToAST";
+

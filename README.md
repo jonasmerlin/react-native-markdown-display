@@ -1,4 +1,4 @@
-# React Native Markdown Display [![npm version](https://badge.fury.io/js/react-native-markdown-display.svg)](https://badge.fury.io/js/react-native-markdown-display) [![Known Vulnerabilities](https://snyk.io/test/github/iamacup/react-native-markdown-display/badge.svg)](https://snyk.io/test/github/iamacup/react-native-markdown-display)
+# React Native Markdown Display
 
 It a 100% compatible CommonMark renderer, a react-native markdown renderer done right. This is **not** a web-view markdown renderer but a renderer that uses native components for all its elements. These components can be overwritten and styled as needed.
 
@@ -16,16 +16,8 @@ This is intended to be a replacement for react-native-markdown-renderer, with a 
 
 ### Install
 
-#### Yarn
-
-```npm
-yarn add react-native-markdown-display
-```
-
-#### NPM
-
-```npm
-npm install -S react-native-markdown-display
+```sh
+npm install @ukdanceblue/react-native-markdown-display
 ```
 
 ### Get Started
@@ -34,7 +26,7 @@ npm install -S react-native-markdown-display
 import React from 'react';
 import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 
-import Markdown from 'react-native-markdown-display';
+import Markdown from '@ukdanceblue/react-native-markdown-display';
 
 const copy = `# h1 Heading 8-)
 

@@ -1,6 +1,6 @@
 {
   "name": "@ukdanceblue/react-native-markdown-display",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Markdown renderer for react-native, with CommonMark spec support + adds syntax extensions & sugar (URL autolinking, typographer), originally created by Mient-jan Stelling as react-native-markdown-renderer",
   "keywords": [
     "react",
@@ -14,6 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/ukdanceblue/react-native-markdown-display.git"
   },
+  "private": false,
   "license": "MIT",
   "author": "Mient-jan Stelling and Tom Pickard + others from the community, ported to TypeScript by Tag Howard",
   "type": "module",
