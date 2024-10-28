@@ -1,8 +1,8 @@
 # React Native Markdown Display [![npm version](https://badge.fury.io/js/react-native-markdown-display.svg)](https://badge.fury.io/js/react-native-markdown-display) [![Known Vulnerabilities](https://snyk.io/test/github/iamacup/react-native-markdown-display/badge.svg)](https://snyk.io/test/github/iamacup/react-native-markdown-display)
 
-**This is a fork of [iamacup/react-native-markdown-display](https://github.com/iamacup/react-native-markdown-display) that increases the depended upon versions of react to 18 and react-native to v0.68. This makes it compatible with Expo SDK 46**
+\*\*This is a vendored copy of [@jonasmerlin/react-native-markdown-display](https://github.com/jonasmerlin/react-native-markdown-display)
 
-It a 100% compatible CommonMark renderer, a react-native markdown renderer done right. This is __not__ a web-view markdown renderer but a renderer that uses native components for all its elements. These components can be overwritten and styled as needed.
+It a 100% compatible CommonMark renderer, a react-native markdown renderer done right. This is **not** a web-view markdown renderer but a renderer that uses native components for all its elements. These components can be overwritten and styled as needed.
 
 ### Compatibility with react-native-markdown-renderer
 
@@ -11,11 +11,13 @@ This is intended to be a replacement for react-native-markdown-renderer, with a 
 ### Install
 
 #### Yarn
+
 ```npm
 yarn add react-native-markdown-display
 ```
 
 #### NPM
+
 ```npm
 npm install -S react-native-markdown-display
 ```
@@ -56,32 +58,29 @@ const App: () => React$Node = () => {
 export default App;
 ```
 
-
 ### Props and Functions
 
 The `<Markdown>` object takes the following common props:
 
-| Property | Default | Required | Description                                                      
-| --- | --- | --- | ---
-| `children` | N/A | `true` | The markdown string to render, or the [pre-processed tree](#pre-processing)
-| `style` | [source](https://github.com/iamacup/react-native-markdown-display/blob/master/src/lib/styles.js) | `false` | An object to override the styling for the various rules, [see style section below](#rules-and-styles) for more info
-| `mergeStyle` | `true` | `false` | If true, when a style is supplied, the individual items are merged with the default styles instead of overwriting them
-| `rules` | [source](https://github.com/iamacup/react-native-markdown-display/blob/master/src/lib/renderRules.js) | `false` | An object of rules that specify how to render each markdown item, [see rules section below](#rules) for more info
-| `onLinkPress` | `import { Linking } from 'react-native';` and `Linking.openURL(url);` | `false` | A handler function to change click behaviour, [see handling links section below](#handling-links) for more info
-| `debugPrintTree` | `false` | `false` | Will print the AST tree to the console to help you see what the markdown is being translated to
-
+| Property         | Default                                                                                               | Required | Description                                                                                                            |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `children`       | N/A                                                                                                   | `true`   | The markdown string to render, or the [pre-processed tree](#pre-processing)                                            |
+| `style`          | [source](https://github.com/iamacup/react-native-markdown-display/blob/master/src/lib/styles.js)      | `false`  | An object to override the styling for the various rules, [see style section below](#rules-and-styles) for more info    |
+| `mergeStyle`     | `true`                                                                                                | `false`  | If true, when a style is supplied, the individual items are merged with the default styles instead of overwriting them |
+| `rules`          | [source](https://github.com/iamacup/react-native-markdown-display/blob/master/src/lib/renderRules.js) | `false`  | An object of rules that specify how to render each markdown item, [see rules section below](#rules) for more info      |
+| `onLinkPress`    | `import { Linking } from 'react-native';` and `Linking.openURL(url);`                                 | `false`  | A handler function to change click behaviour, [see handling links section below](#handling-links) for more info        |
+| `debugPrintTree` | `false`                                                                                               | `false`  | Will print the AST tree to the console to help you see what the markdown is being translated to                        |
 
 And some additional, less used options:
 
-| Property | Default | Required | Description    
-| --- | ---  | --- | ---
-| `renderer` | `instanceOf(AstRenderer)` | `false` | Used to specify a custom renderer, you can not use the rules or styles props with a custom renderer.
-| `markdownit` | `instanceOf(MarkdownIt)` | `false` | A custom markdownit instance with your configuration, default is `MarkdownIt({typographer: true})`
-| `maxTopLevelChildren` | `null` | `false` | If defined as a number will only render out first `n` many top level children, then will try to render out `topLevelMaxExceededItem`
-| `topLevelMaxExceededItem` | `<Text key="dotdotdot">...</Text>` | `false` | Will render when `maxTopLevelChildren` is hit. Make sure to give it a key!
-| `allowedImageHandlers` | `['data:image/png;base64', 'data:image/gif;base64', 'data:image/jpeg;base64', 'https://', 'http://']` | `false` | Any image that does not start with one of these will have the `defaultImageHandler` value prepended to it (unless `defaultImageHandler` is null in which case it won't try to render anything)
-| `defaultImageHandler` | `http://` | `false` | Will be prepended to an image url if it does not start with something in the `allowedImageHandlers` array, if this is set to null, it won't try to recover but will just not render anything instead.
-
+| Property                  | Default                                                                                               | Required | Description                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `renderer`                | `instanceOf(AstRenderer)`                                                                             | `false`  | Used to specify a custom renderer, you can not use the rules or styles props with a custom renderer.                                                                                                  |
+| `markdownit`              | `instanceOf(MarkdownIt)`                                                                              | `false`  | A custom markdownit instance with your configuration, default is `MarkdownIt({typographer: true})`                                                                                                    |
+| `maxTopLevelChildren`     | `null`                                                                                                | `false`  | If defined as a number will only render out first `n` many top level children, then will try to render out `topLevelMaxExceededItem`                                                                  |
+| `topLevelMaxExceededItem` | `<Text key="dotdotdot">...</Text>`                                                                    | `false`  | Will render when `maxTopLevelChildren` is hit. Make sure to give it a key!                                                                                                                            |
+| `allowedImageHandlers`    | `['data:image/png;base64', 'data:image/gif;base64', 'data:image/jpeg;base64', 'https://', 'http://']` | `false`  | Any image that does not start with one of these will have the `defaultImageHandler` value prepended to it (unless `defaultImageHandler` is null in which case it won't try to render anything)        |
+| `defaultImageHandler`     | `http://`                                                                                             | `false`  | Will be prepended to an image url if it does not start with something in the `allowedImageHandlers` array, if this is set to null, it won't try to recover but will just not render anything instead. |
 
 # Syntax Support
 
@@ -97,13 +96,12 @@ And some additional, less used options:
   ###### h6 Heading
 ```
 
-| iOS | Android
-| --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-1.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-1.png"/>  
+| iOS                                                                                                   | Android                                                                                                   |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-1.png"/> | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-1.png"/> |
 
 </p>
 </details>
-
 
 <details><summary>Horizontal Rules</summary>
 <p>
@@ -119,15 +117,12 @@ And some additional, less used options:
   Some text below
 ```
 
-| iOS | Android
-| --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-2.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-2.png"/>  
-
+| iOS                                                                                                   | Android                                                                                                   |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-2.png"/> | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-2.png"/> |
 
 </p>
 </details>
-
-
 
 <details><summary>Emphasis</summary>
 <p>
@@ -144,13 +139,12 @@ And some additional, less used options:
   ~~Strikethrough~~
 ```
 
-| iOS | Android
-| --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-4.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-4.png"/>  
+| iOS                                                                                                   | Android                                                                                                   |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-4.png"/> | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-4.png"/> |
 
 </p>
 </details>
-
 
 <details><summary>Blockquotes</summary>
 <p>
@@ -161,13 +155,12 @@ And some additional, less used options:
   > > > ...or with spaces between arrows.
 ```
 
-| iOS | Android
-| --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-5.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-5.png"/>  
+| iOS                                                                                                   | Android                                                                                                   |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-5.png"/> | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-5.png"/> |
 
 </p>
 </details>
-
 
 <details><summary>Lists</summary>
 <p>
@@ -195,13 +188,12 @@ And some additional, less used options:
   58. bar
 ```
 
-| iOS | Android
-| --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-6.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-6.png"/>  
+| iOS                                                                                                   | Android                                                                                                   |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-6.png"/> | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-6.png"/> |
 
 </p>
 </details>
-
 
 <details><summary>Code</summary>
 <p>
@@ -209,34 +201,34 @@ And some additional, less used options:
 ```
   Inline \`code\`
 
-  Indented code
+Indented code
 
       // Some comments
       line 1 of code
       line 2 of code
       line 3 of code
 
+Block code "fences"
 
-  Block code "fences"
+\`\`\`
+Sample text here...
+\`\`\`
 
-  \`\`\`
-  Sample text here...
-  \`\`\`
+Syntax highlighting
 
-  Syntax highlighting
+\`\`\` js
+var foo = function (bar) {
+return bar++;
+};
 
-  \`\`\` js
-  var foo = function (bar) {
-    return bar++;
-  };
+console.log(foo(5));
+\`\`\`
 
-  console.log(foo(5));
-  \`\`\`
 ```
 
 | iOS | Android
 | --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-7.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-7.png"/>  
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-7.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-7.png"/>
 
 </p>
 </details>
@@ -246,24 +238,26 @@ And some additional, less used options:
 <p>
 
 ```
-  | Option | Description |
-  | ------ | ----------- |
-  | data   | path to data files to supply the data that will be passed into templates. |
-  | engine | engine to be used for processing templates. Handlebars is the default. |
-  | ext    | extension to be used for dest files. |
 
-  Right aligned columns
+| Option | Description                                                               |
+| ------ | ------------------------------------------------------------------------- |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default.    |
+| ext    | extension to be used for dest files.                                      |
 
-  | Option | Description |
-  | ------:| -----------:|
-  | data   | path to data files to supply the data that will be passed into templates. |
-  | engine | engine to be used for processing templates. Handlebars is the default. |
-  | ext    | extension to be used for dest files. |
+Right aligned columns
+
+| Option |                                                               Description |
+| -----: | ------------------------------------------------------------------------: |
+|   data | path to data files to supply the data that will be passed into templates. |
+| engine |    engine to be used for processing templates. Handlebars is the default. |
+|    ext |                                      extension to be used for dest files. |
+
 ```
 
 | iOS | Android
 | --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-8.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-8.png"/>  
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-8.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-8.png"/>
 
 </p>
 </details>
@@ -272,16 +266,18 @@ And some additional, less used options:
 <p>
 
 ```
-  [link text](https://www.google.com)
 
-  [link with title](https://www.google.com "title text!")
+[link text](https://www.google.com)
 
-  Autoconverted link https://www.google.com (enable linkify to see)
+[link with title](https://www.google.com 'title text!')
+
+Autoconverted link https://www.google.com (enable linkify to see)
+
 ```
 
 | iOS | Android
 | --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-9.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-9.png"/>  
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-9.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-9.png"/>
 
 </p>
 </details>
@@ -290,21 +286,23 @@ And some additional, less used options:
 <p>
 
 ```
-  ![Minion](https://octodex.github.com/images/minion.png)
-  ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 
-  Like links, Images also have a footnote style syntax
+![Minion](https://octodex.github.com/images/minion.png)
+![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg 'The Stormtroopocat')
 
-  ![Alt text][id]
+Like links, Images also have a footnote style syntax
 
-  With a reference later in the document defining the URL location:
+![Alt text][id]
 
-  [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+With a reference later in the document defining the URL location:
+
+[id]: https://octodex.github.com/images/dojocat.jpg 'The Dojocat'
+
 ```
 
 | iOS | Android
 | --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-10.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-10.png"/>  
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-10.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-10.png"/>
 
 </p>
 </details>
@@ -314,20 +312,22 @@ And some additional, less used options:
 <p>
 
 ```
-  Enable typographer option to see result.
 
-  (c) (C) (r) (R) (tm) (TM) (p) (P) +-
+Enable typographer option to see result.
 
-  test.. test... test..... test?..... test!....
+(c) (C) (r) (R) (tm) (TM) (p) (P) +-
 
-  !!!!!! ???? ,,  -- ---
+test.. test... test..... test?..... test!....
 
-  "Smartypants, double quotes" and 'single quotes'
-```
+!!!!!! ???? ,, -- ---
+
+"Smartypants, double quotes" and 'single quotes'
+
+````
 
 | iOS | Android
 | --- | ---
-| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-3.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-3.png"/>  
+| <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/ios-3.png"/>  | <img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/android-3.png"/>
 
 </p>
 </details>
@@ -351,7 +351,7 @@ import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import Markdown, { MarkdownIt } from 'react-native-markdown-display';
 import blockEmbedPlugin from 'markdown-it-block-embed';
 
-const markdownItInstance = 
+const markdownItInstance =
     MarkdownIt({typographer: true})
       .use(blockEmbedPlugin, {
         containerClassName: "video-embed"
@@ -386,7 +386,7 @@ const App: () => React$Node = () => {
 
 export default App;
 
-```
+````
 
 In the console, we will see the following rendered tree:
 
@@ -401,14 +401,12 @@ body
 With the following error message:
 
 ```
-Warning, unknown render rule encountered: video. 'unknown' render rule used (by default, returns null - nothing rendered) 
+Warning, unknown render rule encountered: video. 'unknown' render rule used (by default, returns null - nothing rendered)
 ```
-
 
 #### Step 2
 
 We need to create the **render rules** and **styles** to handle this new **'video'** component
-
 
 ```jsx
 import React from 'react';
@@ -417,7 +415,7 @@ import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import Markdown, { MarkdownIt } from 'react-native-markdown-display';
 import blockEmbedPlugin from 'markdown-it-block-embed';
 
-const markdownItInstance = 
+const markdownItInstance =
     MarkdownIt({typographer: true})
       .use(blockEmbedPlugin, {
         containerClassName: "video-embed"
@@ -455,7 +453,7 @@ const App: () => React$Node = () => {
                       Return a video component instead of this text component!
                     </Text>);
                   }
-                   
+
                 }}
             >
               {copy}
@@ -501,14 +499,15 @@ And all of the video properties needed to render something meaningful are on the
 You can do some additional debugging of what the markdown instance is spitting out like this:
 
 ```jsx
-import Markdown, { MarkdownIt } from 'react-native-markdown-display';
+import Markdown, {MarkdownIt} from 'react-native-markdown-display';
 import blockEmbedPlugin from 'markdown-it-block-embed';
 
-const markdownItInstance = 
-    MarkdownIt({typographer: true})
-      .use(blockEmbedPlugin, {
-        containerClassName: "video-embed"
-      });
+const markdownItInstance = MarkdownIt({typographer: true}).use(
+  blockEmbedPlugin,
+  {
+    containerClassName: 'video-embed',
+  },
+);
 
 const copy = `
 # Some header
@@ -523,7 +522,6 @@ console.log(astTree);
 //this contains the html that would be generated - not used by react-native-markdown-display but useful for reference
 const html = markdownItInstance.render(copy);
 console.log(html);
-
 ```
 
 The above code will output something like this:
@@ -549,10 +547,8 @@ html:
 <div class="video-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/lJIrF4YjHfQ" frameborder="0" width="640" height="390" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
 ```
 
-
 </p>
 </details>
-
 
 <details><summary>All Markdown for Testing</summary>
 <p>
@@ -712,7 +708,6 @@ Typographic Replacements
 </p>
 </details>
 
-
 # Rules and Styles
 
 ### How to style stuff
@@ -723,11 +718,10 @@ Think of the implementation like applying styles in CSS. changes to the `body` e
 
 **Be careful when styling 'text':** the text rule is not applied to all rendered text, most notably list bullet points. If you want to, for instance, color all text, change the `body` style.
 
-
 <details><summary>Example</summary>
 <p>
 
-<img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/style-example.png"/> 
+<img src="https://github.com/iamacup/react-native-markdown-display/raw/master/doc/images/style-example.png"/>
 
 ```jsx
 import React from 'react';
@@ -783,7 +777,7 @@ export default App;
 </p>
 </details>
 
-### Styles 
+### Styles
 
 Styles are used to override how certain rules are styled. The existing implementation is [here](https://github.com/iamacup/react-native-markdown-display/blob/master/src/lib/styles.js)
 
@@ -925,46 +919,45 @@ export default App;
 </p>
 </details>
 
-
 ### All rules and their associated styles:
 
-| Render Rule | Style(s) |
-| ------ | ----------- |
-| `body` | `body` | 
-| `heading1` | `heading1` |
-| `heading2` | `heading2` |
-| `heading3` | `heading3` |
-| `heading4` | `heading4` |
-| `heading5` | `heading5` |
-| `heading6` | `heading6` | 
-| `hr` | `hr` | 
-| `strong` | `strong` | 
-| `em` | `em` | 
-| `s` | `s` | 
-| `blockquote` | `blockquote` | 
-| `bullet_list` | `bullet_list` | 
-| `ordered_list` | `ordered_list` | 
-| `list_item` | `list_item` - This is a special case that contains a set of pseudo classes that don't align to the render rule: `ordered_list_icon`, `ordered_list_content`, `bullet_list_icon`, `bullet_list_content` | 
-| `code_inline` | `code_inline` | 
-| `code_block` | `code_block` | 
-| `fence` | `fence` | 
-| `table` | `table` | 
-| `thead` | `thead` | 
-| `tbody` | `tbody` | 
-| `th` | `th` | 
-| `tr` | `tr` | 
-| `td` | `td` | 
-| `link` | `link` | 
-| `blocklink` | `blocklink` | 
-| `image` | `image` | 
-| `text` | `text` | 
-| `textgroup` | `textgroup` | 
-| `paragraph` | `paragraph` | 
-| `hardbreak` | `hardbreak` | 
-| `softbreak` | `softbreak` | 
-| `pre` | `pre` | 
-| `inline` | `inline` | 
-| `span` | `span` | 
+| Render Rule    | Style(s)                                                                                                                                                                                               |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `body`         | `body`                                                                                                                                                                                                 |
+| `heading1`     | `heading1`                                                                                                                                                                                             |
+| `heading2`     | `heading2`                                                                                                                                                                                             |
+| `heading3`     | `heading3`                                                                                                                                                                                             |
+| `heading4`     | `heading4`                                                                                                                                                                                             |
+| `heading5`     | `heading5`                                                                                                                                                                                             |
+| `heading6`     | `heading6`                                                                                                                                                                                             |
+| `hr`           | `hr`                                                                                                                                                                                                   |
+| `strong`       | `strong`                                                                                                                                                                                               |
+| `em`           | `em`                                                                                                                                                                                                   |
+| `s`            | `s`                                                                                                                                                                                                    |
+| `blockquote`   | `blockquote`                                                                                                                                                                                           |
+| `bullet_list`  | `bullet_list`                                                                                                                                                                                          |
+| `ordered_list` | `ordered_list`                                                                                                                                                                                         |
+| `list_item`    | `list_item` - This is a special case that contains a set of pseudo classes that don't align to the render rule: `ordered_list_icon`, `ordered_list_content`, `bullet_list_icon`, `bullet_list_content` |
+| `code_inline`  | `code_inline`                                                                                                                                                                                          |
+| `code_block`   | `code_block`                                                                                                                                                                                           |
+| `fence`        | `fence`                                                                                                                                                                                                |
+| `table`        | `table`                                                                                                                                                                                                |
+| `thead`        | `thead`                                                                                                                                                                                                |
+| `tbody`        | `tbody`                                                                                                                                                                                                |
+| `th`           | `th`                                                                                                                                                                                                   |
+| `tr`           | `tr`                                                                                                                                                                                                   |
+| `td`           | `td`                                                                                                                                                                                                   |
+| `link`         | `link`                                                                                                                                                                                                 |
+| `blocklink`    | `blocklink`                                                                                                                                                                                            |
+| `image`        | `image`                                                                                                                                                                                                |
+| `text`         | `text`                                                                                                                                                                                                 |
+| `textgroup`    | `textgroup`                                                                                                                                                                                            |
+| `paragraph`    | `paragraph`                                                                                                                                                                                            |
+| `hardbreak`    | `hardbreak`                                                                                                                                                                                            |
+| `softbreak`    | `softbreak`                                                                                                                                                                                            |
+| `pre`          | `pre`                                                                                                                                                                                                  |
+| `inline`       | `inline`                                                                                                                                                                                               |
+| `span`         | `span`                                                                                                                                                                                                 |
 
 # Handling Links
 
@@ -988,7 +981,7 @@ const onLinkPress = (url) => {
       // some custom logic
       return false;
     }
-    
+
     // return true to open with `Linking.openURL
     // return false to handle it yourself
     return true
@@ -1071,7 +1064,6 @@ export default App;
 </p>
 </details>
 
-
 # Disabling Specific Types of Markdown
 
 You can dissable any type of markdown you want, which is very useful in a mobile environment, by passing the markdownit property like below. Note that for convenience we also export the `MarkdownIt` instance so you don't have to include it as a project dependency directly just to remove some types of markdown.
@@ -1117,7 +1109,6 @@ export default App;
 
 A full list of things you can turn off is [here](https://github.com/markdown-it/markdown-it/blob/master/lib/presets/commonmark.js)
 
-
 ### Pre Processing
 
 It is possible to need to pre-process the data outside of this library ([related discussion here](https://github.com/iamacup/react-native-markdown-display/issues/79)). As a result, you can pass an AST tree directly as the children like this:
@@ -1159,7 +1150,6 @@ const App: () => React$Node = () => {
 
 export default App;
 ```
-
 
 ### Other Notes
 

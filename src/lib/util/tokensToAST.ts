@@ -1,13 +1,10 @@
-import getUniqueID from './getUniqueID';
-import getTokenTypeByToken from './getTokenTypeByToken';
+import getUniqueID from "./getUniqueID";
+import getTokenTypeByToken from "./getTokenTypeByToken";
+import { Token } from "markdown-it";
+import { ASTNode } from "../types";
+import TextToken from "./Token";
 
-/**
- *
- * @param {{type: string, tag:string, content: string, children: *, attrs: Array, meta, info, block: boolean}} token
- * @param {number} tokenIndex
- * @return {{type: string, content, tokenIndex: *, index: number, attributes: {}, children: *}}
- */
-function createNode(token, tokenIndex) {
+function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
   const type = getTokenTypeByToken(token);
   const content = token.content;
 
@@ -16,7 +13,7 @@ function createNode(token, tokenIndex) {
   if (token.attrs) {
     attributes = token.attrs.reduce((prev, curr) => {
       const [name, value] = curr;
-      return {...prev, [name]: value};
+      return { ...prev, [name]: value };
     }, {});
   }
 
@@ -27,23 +24,18 @@ function createNode(token, tokenIndex) {
     sourceMeta: token.meta,
     block: token.block,
     markup: token.markup,
-    key: getUniqueID() + '_' + type,
+    key: getUniqueID() + "_" + type,
     content,
     tokenIndex,
     index: 0,
     attributes,
-    children: tokensToAST(token.children),
+    children: token.children ? tokensToAST(token.children) : [],
   };
 }
 
-/**
- *
- * @param {Array<{type: string, tag:string, content: string, children: *, attrs: Array}>}tokens
- * @return {Array}
- */
-export default function tokensToAST(tokens) {
+export default function tokensToAST(tokens: (Token | TextToken)[]): ASTNode[] {
   let stack = [];
-  let children = [];
+  let children: ASTNode[] = [];
 
   if (!tokens || tokens.length === 0) {
     return [];
@@ -55,9 +47,9 @@ export default function tokensToAST(tokens) {
 
     if (
       !(
-        astNode.type === 'text' &&
+        astNode.type === "text" &&
         astNode.children.length === 0 &&
-        astNode.content === ''
+        astNode.content === ""
       )
     ) {
       astNode.index = children.length;
@@ -65,9 +57,9 @@ export default function tokensToAST(tokens) {
       if (token.nesting === 1) {
         children.push(astNode);
         stack.push(children);
-        children = astNode.children;
+        children = [...astNode.children];
       } else if (token.nesting === -1) {
-        children = stack.pop();
+        children = stack.pop() ?? [];
       } else if (token.nesting === 0) {
         children.push(astNode);
       }

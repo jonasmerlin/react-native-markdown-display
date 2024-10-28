@@ -1,8 +1,8 @@
 // tslint:disable:max-classes-per-file
-import MarkdownIt from 'markdown-it';
-import Token from 'markdown-it/lib/token';
-import {ComponentType, ReactNode} from 'react';
-import {StyleSheet, View} from 'react-native';
+import MarkdownIt from "markdown-it";
+import Token from "markdown-it/lib/token";
+import { ComponentType, ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
 
 export function getUniqueID(): string;
 export function openUrl(url: string): void;
@@ -24,7 +24,7 @@ export type RenderLinkFunction = (
   children: ReactNode[],
   parentNodes: ASTNode[],
   styles: any,
-  onLinkPress?: (url: string) => boolean,
+  onLinkPress?: (url: string) => boolean
 ) => ReactNode;
 
 export type RenderImageFunction = (
@@ -33,7 +33,7 @@ export type RenderImageFunction = (
   parentNodes: ASTNode[],
   styles: any,
   allowedImageHandlers: string[],
-  defaultImageHandler: string,
+  defaultImageHandler: string | null
 ) => ReactNode;
 
 export interface RenderRules {
@@ -71,12 +71,12 @@ export class AstRenderer {
 export function parser(
   source: string,
   renderer: (node: ASTNode) => View,
-  parser: MarkdownParser,
+  parser: MarkdownParser
 ): any;
 
 export function stringToTokens(
   source: string,
-  markdownIt: MarkdownParser,
+  markdownIt: MarkdownParser
 ): Token[];
 
 export function tokensToAST(tokens: ReadonlyArray<Token>): ASTNode[];
@@ -95,5 +95,5 @@ export interface MarkdownProps {
 type MarkdownStatic = ComponentType<MarkdownProps>;
 export const Markdown: MarkdownStatic;
 export type Markdown = MarkdownStatic;
-export {MarkdownIt};
+export { MarkdownIt };
 export default Markdown;

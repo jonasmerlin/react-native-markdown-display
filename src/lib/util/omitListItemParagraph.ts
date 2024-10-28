@@ -1,6 +1,11 @@
-export default function omitListItemParagraph(tokens) {
+import { Token } from "markdown-it";
+import TextToken from "./Token";
+
+export default function omitListItemParagraph(
+  tokens: (Token | TextToken)[]
+): (Token | TextToken)[] {
   // used to ensure that we remove the correct ending paragraph token
-  let depth = null;
+  let depth: number | null = null;
   return tokens.filter((token, index) => {
     // update depth if we've already removed a starting paragraph token
     if (depth !== null) {
@@ -8,13 +13,13 @@ export default function omitListItemParagraph(tokens) {
     }
 
     // check for a list_item token followed by paragraph token (to remove)
-    if (token.type === 'list_item' && token.nesting === 1 && depth === null) {
+    if (token.type === "list_item" && token.nesting === 1 && depth === null) {
       const next = index + 1 in tokens ? tokens[index + 1] : null;
-      if (next && next.type === 'paragraph' && next.nesting === 1) {
+      if (next && next.type === "paragraph" && next.nesting === 1) {
         depth = 0;
         return true;
       }
-    } else if (token.type === 'paragraph') {
+    } else if (token.type === "paragraph") {
       if (token.nesting === 1 && depth === 1) {
         // remove the paragraph token immediately after the list_item token
         return false;
