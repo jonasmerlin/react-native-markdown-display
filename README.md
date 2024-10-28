@@ -1,8 +1,14 @@
 # React Native Markdown Display [![npm version](https://badge.fury.io/js/react-native-markdown-display.svg)](https://badge.fury.io/js/react-native-markdown-display) [![Known Vulnerabilities](https://snyk.io/test/github/iamacup/react-native-markdown-display/badge.svg)](https://snyk.io/test/github/iamacup/react-native-markdown-display)
 
-\*\*This is a vendored copy of [@jonasmerlin/react-native-markdown-display](https://github.com/jonasmerlin/react-native-markdown-display)
-
 It a 100% compatible CommonMark renderer, a react-native markdown renderer done right. This is **not** a web-view markdown renderer but a renderer that uses native components for all its elements. These components can be overwritten and styled as needed.
+
+## Credit
+
+- [mientjan/react-native-markdown-renderer](https://github.com/mientjan/react-native-markdown-renderer): Original library
+- [iamacup/react-native-markdown-display](https://github.com/iamacup/react-native-markdown-display): Fork
+- [jonasmerlin/react-native-markdown-display](https://github.com/jonasmerlin/react-native-markdown-display): Second Fork
+- [@jthoward64](https://github.com/jthoward64): Typescript port
+
 
 ### Compatibility with react-native-markdown-renderer
 
