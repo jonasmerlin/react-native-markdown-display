@@ -1,26 +1,20 @@
-import { Token } from "markdown-it";
+import {Token} from "markdown-it";
 
 export default class TextToken {
   constructor(
     public type: "textgroup",
-    public nesting: number
+    public nesting: number,
   ) {}
 
   public get children(): Token[] {
     return [];
   }
 
-  public get tag(): "" {
-    return "";
-  }
+  public readonly tag = "";
 
-  public get content(): "" {
-    return "";
-  }
+  public readonly content = "";
 
-  public get attrs(): null {
-    return null;
-  }
+  public readonly attrs = null;
   public get info(): undefined {
     return undefined;
   }
@@ -31,5 +25,5 @@ export default class TextToken {
     return undefined;
   }
 
-  public block: boolean = false;
+  public block = false;
 }

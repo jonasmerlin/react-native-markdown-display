@@ -1,8 +1,8 @@
-import MarkdownIt, { Token } from "markdown-it";
+import MarkdownIt, {Token} from "markdown-it";
 
 export function stringToTokens(
   source: string,
-  markdownIt: MarkdownIt
+  markdownIt: MarkdownIt,
 ): Token[] {
   let result: Token[] = [];
   try {

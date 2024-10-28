@@ -5,7 +5,12 @@
   "types": "src/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "format": "prettier . --check",
+    "format-fix": "prettier . --write",
+    "check": "npm run lint && npm run format && npm run build -- --noEmit"
   },
   "repository": {
     "type": "git",
@@ -30,9 +35,14 @@
     "react-native": ">=0.76.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/markdown-it": "^14.1.2",
     "@types/react": "^18.0.0",
+    "eslint": "^9.13.0",
+    "prettier": "^3.3.3",
     "react-native": "^0.76.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.12.0"
   }
 }

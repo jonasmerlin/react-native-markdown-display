@@ -1,21 +1,20 @@
-/* eslint-disable react-refresh/only-export-components */
 import MarkdownIt from "markdown-it";
-import type { ReactNode } from "react";
-import React, { useMemo } from "react";
-import type { TextStyle, ViewStyle } from "react-native";
-import { StyleSheet, Text } from "react-native";
+import type {ReactNode} from "react";
+import React, {useMemo} from "react";
+import type {TextStyle, ViewStyle} from "react-native";
+import {StyleSheet, Text} from "react-native";
 
 import AstRenderer from "./lib/AstRenderer";
 import parser from "./lib/parser";
-import type { RenderRules } from "./lib/renderRules";
+import type {RenderRules} from "./lib/renderRules";
 import renderRules from "./lib/renderRules";
-import { styles } from "./lib/styles";
-import type { ASTNode } from "./lib/types";
+import {styles} from "./lib/styles";
+import type {ASTNode} from "./lib/types";
 import removeTextStyleProps from "./lib/util/removeTextStyleProps";
 
 function getStyle<T>(
   mergeStyle: boolean,
-  style: StyleSheet.NamedStyles<T> | undefined
+  style: StyleSheet.NamedStyles<T> | undefined,
 ): ReturnType<typeof StyleSheet.create> {
   let useStyles: Record<string, ViewStyle | TextStyle> = {};
 
@@ -71,17 +70,17 @@ const getRenderer = (
   topLevelMaxExceededItem: React.ReactNode,
   allowedImageHandlers: string[],
   defaultImageHandler: string,
-  debugPrintTree: boolean
+  debugPrintTree: boolean,
 ): AstRenderer => {
   if (renderer && rules) {
     console.warn(
-      "react-native-markdown-display you are using renderer and rules at the same time. This is not possible, props.rules is ignored"
+      "react-native-markdown-display you are using renderer and rules at the same time. This is not possible, props.rules is ignored",
     );
   }
 
   if (renderer && style) {
     console.warn(
-      "react-native-markdown-display you are using renderer and style at the same time. This is not possible, props.style is ignored"
+      "react-native-markdown-display you are using renderer and style at the same time. This is not possible, props.style is ignored",
     );
   }
 
@@ -93,7 +92,7 @@ const getRenderer = (
       return renderer;
     } else {
       throw new TypeError(
-        "Provided renderer is not compatible with function or AstRenderer. please change"
+        "Provided renderer is not compatible with function or AstRenderer. please change",
       );
     }
   } else {
@@ -110,7 +109,7 @@ const getRenderer = (
       topLevelMaxExceededItem,
       allowedImageHandlers,
       defaultImageHandler,
-      debugPrintTree
+      debugPrintTree,
     );
   }
 };
@@ -173,7 +172,7 @@ const Markdown: React.FC<
           topLevelMaxExceededItem,
           allowedImageHandlers,
           defaultImageHandler,
-          debugPrintTree
+          debugPrintTree,
         ),
       [
         maxTopLevelChildren,
@@ -186,7 +185,7 @@ const Markdown: React.FC<
         allowedImageHandlers,
         defaultImageHandler,
         debugPrintTree,
-      ]
+      ],
     );
 
     const memoizedParser = useMemo(() => markdownit, [markdownit]);
@@ -194,23 +193,22 @@ const Markdown: React.FC<
     return parser(
       children,
       (nodes: readonly ASTNode[]): ReactNode => momoizedRenderer.render(nodes),
-      memoizedParser
+      memoizedParser,
     );
-  }
+  },
 );
 
 export default Markdown;
 
-export { default as MarkdownIt } from "markdown-it";
-export { default as AstRenderer } from "./lib/AstRenderer";
-export { default as textStyleProps } from "./lib/data/textStyleProps";
-export { default as parser } from "./lib/parser";
-export { default as renderRules } from "./lib/renderRules";
-export { styles } from "./lib/styles";
-export { default as getUniqueID } from "./lib/util/getUniqueID";
-export { default as hasParents } from "./lib/util/hasParents";
-export { default as openUrl } from "./lib/util/openUrl";
-export { default as removeTextStyleProps } from "./lib/util/removeTextStyleProps";
-export { stringToTokens } from "./lib/util/stringToTokens";
-export { default as tokensToAST } from "./lib/util/tokensToAST";
-
+export {default as MarkdownIt} from "markdown-it";
+export {default as AstRenderer} from "./lib/AstRenderer";
+export {default as textStyleProps} from "./lib/data/textStyleProps";
+export {default as parser} from "./lib/parser";
+export {default as renderRules} from "./lib/renderRules";
+export {styles} from "./lib/styles";
+export {default as getUniqueID} from "./lib/util/getUniqueID";
+export {default as hasParents} from "./lib/util/hasParents";
+export {default as openUrl} from "./lib/util/openUrl";
+export {default as removeTextStyleProps} from "./lib/util/removeTextStyleProps";
+export {stringToTokens} from "./lib/util/stringToTokens";
+export {default as tokensToAST} from "./lib/util/tokensToAST";

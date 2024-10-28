@@ -1,8 +1,8 @@
-import { Token } from "markdown-it";
+import {Token} from "markdown-it";
 import TextToken from "./Token";
 
 export default function flattenTokens(
-  tokens: (Token | TextToken)[]
+  tokens: (Token | TextToken)[],
 ): (Token | TextToken)[] {
   return tokens.reduce<(Token | TextToken)[]>((acc, curr) => {
     if (curr.type === "inline" && curr.children && curr.children.length > 0) {

@@ -1,9 +1,9 @@
-import { Token } from "markdown-it";
+import {Token} from "markdown-it";
 
 export default function renderInlineAsText(tokens: Token[]): string {
-  var result = "";
+  let result = "";
 
-  for (var i = 0, len = tokens.length; i < len; i++) {
+  for (let i = 0, len = tokens.length; i < len; i++) {
     if (tokens[i].type === "text") {
       result += tokens[i].content;
     } else if (tokens[i].type === "image") {

@@ -1,7 +1,7 @@
-import getUniqueID from "./getUniqueID";
+import {Token} from "markdown-it";
+import {ASTNode} from "../types";
 import getTokenTypeByToken from "./getTokenTypeByToken";
-import { Token } from "markdown-it";
-import { ASTNode } from "../types";
+import getUniqueID from "./getUniqueID";
 import TextToken from "./Token";
 
 function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
@@ -13,7 +13,7 @@ function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
   if (token.attrs) {
     attributes = token.attrs.reduce((prev, curr) => {
       const [name, value] = curr;
-      return { ...prev, [name]: value };
+      return {...prev, [name]: value};
     }, {});
   }
 
@@ -21,7 +21,7 @@ function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
     type,
     sourceType: token.type,
     sourceInfo: token.info,
-    sourceMeta: token.meta,
+    sourceMeta: token.meta as unknown,
     block: token.block,
     markup: token.markup,
     key: getUniqueID() + "_" + type,
@@ -33,8 +33,8 @@ function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
   };
 }
 
-export default function tokensToAST(tokens: (Token | TextToken)[]): ASTNode[] {
-  let stack = [];
+export default function tokensToAST(tokens?: (Token | TextToken)[]): ASTNode[] {
+  const stack = [];
   let children: ASTNode[] = [];
 
   if (!tokens || tokens.length === 0) {

@@ -1,4 +1,4 @@
-import cssToReactNative, { Style, StyleTuple } from "css-to-react-native";
+import cssToReactNative, {Style, StyleTuple} from "css-to-react-native";
 
 export default function convertAdditionalStyles(style: string): Style {
   const rules = style.split(";");

@@ -1,8 +1,8 @@
-import { Token } from "markdown-it";
+import {Token} from "markdown-it";
 import TextToken from "./Token";
 
 export default function groupTextTokens(
-  tokens: (Token | TextToken)[]
+  tokens: (Token | TextToken)[],
 ): (Token | TextToken)[] {
   const result: (Token | TextToken)[] = [];
 

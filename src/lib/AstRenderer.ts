@@ -1,12 +1,12 @@
-import { StyleSheet, ViewStyle } from "react-native";
+import {StyleSheet, ViewStyle} from "react-native";
 
-import getUniqueID from "./util/getUniqueID";
 import convertAdditionalStyles from "./util/convertAdditionalStyles";
+import getUniqueID from "./util/getUniqueID";
 
+import {ReactNode} from "react";
 import textStyleProps from "./data/textStyleProps";
-import { RenderRules } from "./renderRules";
-import { ASTNode } from "./types";
-import { ReactNode } from "react";
+import {RenderRules} from "./renderRules";
+import {ASTNode} from "./types";
 
 export default class AstRenderer {
   constructor(
@@ -17,15 +17,15 @@ export default class AstRenderer {
     private topLevelMaxExceededItem: React.ReactNode,
     private allowedImageHandlers: string[],
     private defaultImageHandler: string,
-    private debugPrintTree: boolean
+    private debugPrintTree: boolean,
   ) {}
 
   getRenderFunction<R extends keyof RenderRules>(type: R): RenderRules[R] {
     const renderFunction = this.renderRules[type];
 
-    if (!renderFunction) {
+    if (!renderFunction as unknown) {
       console.warn(
-        `Warning, unknown render rule encountered: ${type}. 'unknown' render rule used (by default, returns null - nothing rendered)`
+        `Warning, unknown render rule encountered: ${type}. 'unknown' render rule used (by default, returns null - nothing rendered)`,
       );
       return this.renderRules.unknown;
     }
@@ -36,10 +36,11 @@ export default class AstRenderer {
   renderNode(node: ASTNode, parentNodes: ASTNode[], isRoot = false): ReactNode {
     const parents = [...parentNodes];
 
-    if (this.debugPrintTree === true) {
+    if (this.debugPrintTree) {
       let str = "";
 
-      for (let a = 0; a < parents.length; a++) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      for (const _ of parents) {
         str = str + "-";
       }
 
@@ -61,7 +62,7 @@ export default class AstRenderer {
         children,
         parentNodes,
         this.style,
-        this.onLinkPress
+        this.onLinkPress,
       );
     }
 
@@ -72,7 +73,7 @@ export default class AstRenderer {
         parentNodes,
         this.style,
         this.allowedImageHandlers,
-        this.defaultImageHandler
+        this.defaultImageHandler,
       );
     }
 
@@ -91,15 +92,16 @@ export default class AstRenderer {
         let refStyle = {};
 
         if (
-          parentNodes[a].attributes &&
           parentNodes[a].attributes?.style &&
           typeof parentNodes[a].attributes?.style === "string"
         ) {
-          refStyle = convertAdditionalStyles(parentNodes[a].attributes?.style);
+          refStyle = convertAdditionalStyles(
+            String(parentNodes[a].attributes?.style),
+          );
         }
 
         // combine in specific styles for the object
-        if (this.style[parentNodes[a].type]) {
+        if (this.style[parentNodes[a].type] as unknown) {
           refStyle = {
             ...refStyle,
             ...StyleSheet.flatten(this.style[parentNodes[a].type]),
@@ -125,10 +127,11 @@ export default class AstRenderer {
         // then work out if any of them are text styles that should be used in the end.
         const arr = Object.keys(refStyle) as (keyof ViewStyle)[];
 
-        for (let b = 0; b < arr.length; b++) {
-          if (textStyleProps.includes(arr[b])) {
-            // @ts-expect-error - this is fine
-            styleObj[arr[b]] = refStyle[arr[b]];
+        for (const key of arr) {
+          if (textStyleProps.includes(key)) {
+            // @ts-expect-error this is fine
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            styleObj[key] = refStyle[key];
           }
         }
       }
@@ -138,14 +141,14 @@ export default class AstRenderer {
         children,
         parentNodes,
         this.style,
-        styleObj
+        styleObj,
       );
     }
 
     // cull top level children
 
     if (
-      isRoot === true &&
+      isRoot &&
       this.maxTopLevelChildren &&
       children.length > this.maxTopLevelChildren
     ) {
@@ -159,12 +162,12 @@ export default class AstRenderer {
       node,
       children,
       parentNodes,
-      this.style
+      this.style,
     );
   }
 
-  render(nodes: ReadonlyArray<ASTNode>): ReactNode {
-    const root: ASTNode = { type: "body", key: getUniqueID(), children: nodes };
+  render(nodes: readonly ASTNode[]): ReactNode {
+    const root: ASTNode = {type: "body", key: getUniqueID(), children: nodes};
     return this.renderNode(root, [], true);
   }
 }

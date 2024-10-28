@@ -1,17 +1,17 @@
 import tokensToAST from "./util/tokensToAST";
-import { stringToTokens } from "./util/stringToTokens";
-import { cleanupTokens } from "./util/cleanupTokens";
+import {stringToTokens} from "./util/stringToTokens";
+import {cleanupTokens} from "./util/cleanupTokens";
 import groupTextTokens from "./util/groupTextTokens";
 import omitListItemParagraph from "./util/omitListItemParagraph";
-import { ReactNode } from "react";
-import MarkdownIt, { Token } from "markdown-it";
+import {ReactNode} from "react";
+import MarkdownIt, {Token} from "markdown-it";
 import TextToken from "./util/Token";
-import { ASTNode } from "./types";
+import {ASTNode} from "./types";
 
 export default function parser(
   source: string,
   renderer: (source: ASTNode[]) => ReactNode,
-  markdownIt: MarkdownIt
+  markdownIt: MarkdownIt,
 ): ReactNode {
   if (Array.isArray(source)) {
     return renderer(source);

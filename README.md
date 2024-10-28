@@ -269,7 +269,7 @@ Right aligned columns
 
 [link text](https://www.google.com)
 
-[link with title](https://www.google.com 'title text!')
+[link with title](https://www.google.com "title text!")
 
 Autoconverted link https://www.google.com (enable linkify to see)
 
@@ -288,7 +288,7 @@ Autoconverted link https://www.google.com (enable linkify to see)
 ```
 
 ![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg 'The Stormtroopocat')
+![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 
 Like links, Images also have a footnote style syntax
 
@@ -296,7 +296,7 @@ Like links, Images also have a footnote style syntax
 
 With a reference later in the document defining the URL location:
 
-[id]: https://octodex.github.com/images/dojocat.jpg 'The Dojocat'
+[id]: https://octodex.github.com/images/dojocat.jpg "The Dojocat"
 
 ```
 
@@ -499,13 +499,13 @@ And all of the video properties needed to render something meaningful are on the
 You can do some additional debugging of what the markdown instance is spitting out like this:
 
 ```jsx
-import Markdown, {MarkdownIt} from 'react-native-markdown-display';
-import blockEmbedPlugin from 'markdown-it-block-embed';
+import Markdown, {MarkdownIt} from "react-native-markdown-display";
+import blockEmbedPlugin from "markdown-it-block-embed";
 
 const markdownItInstance = MarkdownIt({typographer: true}).use(
   blockEmbedPlugin,
   {
-    containerClassName: 'video-embed',
+    containerClassName: "video-embed",
   },
 );
 

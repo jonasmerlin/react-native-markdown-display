@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import type { ViewStyle } from "react-native";
+import type {ReactNode} from "react";
+import type {ViewStyle} from "react-native";
 import {
   Platform,
   StyleSheet,
@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import textStyleProps from "./data/textStyleProps";
-import type { ASTNode } from "./types";
+import type {ASTNode} from "./types";
 import hasParents from "./util/hasParents";
 import openUrl from "./util/openUrl";
 
@@ -17,7 +17,7 @@ export type RenderFunction = (
   node: ASTNode,
   children: ReactNode[],
   parentNodes: ASTNode[],
-  styles: Record<string, ViewStyle>
+  styles: Record<string, ViewStyle>,
 ) => ReactNode;
 
 export type InheritingRenderFunction = (
@@ -25,7 +25,7 @@ export type InheritingRenderFunction = (
   children: ReactNode[],
   parentNodes: ASTNode[],
   styles: Record<string, ViewStyle>,
-  inheritedStyles?: Record<string, ViewStyle>
+  inheritedStyles?: Record<string, ViewStyle>,
 ) => ReactNode;
 
 export type RenderLinkFunction = (
@@ -33,7 +33,7 @@ export type RenderLinkFunction = (
   children: ReactNode[],
   parentNodes: ASTNode[],
   styles: Record<string, ViewStyle>,
-  onLinkPress?: (url: string) => boolean
+  onLinkPress?: (url: string) => boolean,
 ) => ReactNode;
 
 export type RenderImageFunction = (
@@ -42,7 +42,7 @@ export type RenderImageFunction = (
   parentNodes: ASTNode[],
   styles: Record<string, ViewStyle>,
   allowedImageHandlers: string[],
-  defaultImageHandler: string | null
+  defaultImageHandler: string | null,
 ) => ReactNode;
 
 export type SomeRenderFunction =
@@ -191,11 +191,11 @@ const renderRules: RenderRules = {
 
     const modifiedInheritedStylesObj: Record<string, ViewStyle> = {};
 
-    for (let b = 0; b < arr.length; b++) {
-      if (textStyleProps.includes(arr[b])) {
+    for (const key of arr) {
+      if (textStyleProps.includes(key)) {
         // @ts-expect-error - this is fine
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        modifiedInheritedStylesObj[arr[b]] = refStyle[arr[b]];
+        modifiedInheritedStylesObj[key] = refStyle[key];
       }
     }
 
@@ -219,7 +219,7 @@ const renderRules: RenderRules = {
 
     if (hasParents(parent, "ordered_list")) {
       const orderedListIndex = parent.findIndex(
-        (el) => el.type === "ordered_list"
+        (el) => el.type === "ordered_list",
       );
 
       const orderedList = parent[orderedListIndex];
@@ -259,11 +259,11 @@ const renderRules: RenderRules = {
     </Text>
   ),
   code_block: (
-    { content, key },
+    {content, key},
     _children,
     _parent,
     styles,
-    inheritedStyles = {}
+    inheritedStyles = {},
   ) => {
     // we trim new lines off the end of code blocks because the parser sends an extra one.
 
@@ -277,13 +277,7 @@ const renderRules: RenderRules = {
       </Text>
     );
   },
-  fence: (
-    { content, key },
-    _children,
-    _parent,
-    styles,
-    inheritedStyles = {}
-  ) => {
+  fence: ({content, key}, _children, _parent, styles, inheritedStyles = {}) => {
     // we trim new lines off the end of code blocks because the parser sends an extra one.
 
     if (typeof content === "string" && content.endsWith("\n")) {
@@ -335,7 +329,10 @@ const renderRules: RenderRules = {
       key={node.key}
       style={styles.link}
       onPress={
-        node.attributes && (() => openUrl(node.attributes?.href, onLinkPress))
+        node.attributes &&
+        (() => {
+          openUrl(String(node.attributes?.href), onLinkPress);
+        })
       }
     >
       {children}
@@ -345,7 +342,10 @@ const renderRules: RenderRules = {
     <TouchableWithoutFeedback
       key={node.key}
       onPress={
-        node.attributes && (() => openUrl(node.attributes?.href, onLinkPress))
+        node.attributes &&
+        (() => {
+          openUrl(String(node.attributes?.href), onLinkPress);
+        })
       }
       style={styles.blocklink}
     >
@@ -360,13 +360,13 @@ const renderRules: RenderRules = {
     _parent,
     styles,
     allowedImageHandlers,
-    defaultImageHandler
+    defaultImageHandler,
   ) => {
     if (!node.attributes) {
       return null;
     }
 
-    const { src, alt } = node.attributes;
+    const {src, alt} = node.attributes;
 
     if (typeof src !== "string") {
       return null;
@@ -386,7 +386,7 @@ const renderRules: RenderRules = {
       key: node.key,
       style: styles._VIEW_SAFE_image,
       source: {
-        uri: show ? src : `${defaultImageHandler}${src}`,
+        uri: show ? src : `${String(defaultImageHandler)}${src}`,
       },
     };
 
@@ -394,13 +394,12 @@ const renderRules: RenderRules = {
       // @ts-expect-error - this is fine
       imageProps.accessible = true;
       // @ts-expect-error - this is fine
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       imageProps.accessibilityLabel = alt;
     }
 
     if (imageProps.style.overflow === "scroll") {
       throw new Error(
-        "Image style property 'overflow' is set to 'scroll'. This is not supported"
+        "Image style property 'overflow' is set to 'scroll'. This is not supported",
       );
     }
     // @ts-expect-error - this is fine

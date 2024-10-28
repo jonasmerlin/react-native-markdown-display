@@ -1,11 +1,11 @@
 import getTokenTypeByToken from "./getTokenTypeByToken";
 import flattenInlineTokens from "./flattenInlineTokens";
 import renderInlineAsText from "./renderInlineAsText";
-import { Token } from "markdown-it";
+import {Token} from "markdown-it";
 import TextToken from "./Token";
 
 export function cleanupTokens(
-  tokens: (Token | TextToken)[]
+  tokens: (Token | TextToken)[],
 ): (Token | TextToken)[] {
   tokens = flattenInlineTokens(tokens);
   tokens.forEach((token) => {
@@ -20,7 +20,7 @@ export function cleanupTokens(
     if (token.type === "image") {
       if (token.attrs)
         token.attrs[token.attrIndex("alt")][1] = renderInlineAsText(
-          token.children ?? []
+          token.children ?? [],
         );
     }
   });
