@@ -1,6 +1,6 @@
 {
   "name": "@ukdanceblue/react-native-markdown-display",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Markdown renderer for react-native, with CommonMark spec support + adds syntax extensions & sugar (URL autolinking, typographer), originally created by Mient-jan Stelling as react-native-markdown-renderer",
   "keywords": [
     "react",
@@ -53,6 +53,6 @@
   },
   "peerDependencies": {
     "react": ">=18.0.0",
-    "react-native": ">=0.76.0"
+    "react-native": ">=0.74.0"
   }
 }
