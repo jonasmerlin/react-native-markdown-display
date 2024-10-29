@@ -1,12 +1,11 @@
-import tokensToAST from "./util/tokensToAST";
-import {stringToTokens} from "./util/stringToTokens";
-import {cleanupTokens} from "./util/cleanupTokens";
+import MarkdownIt, { Token } from "markdown-it";
+import { ReactNode } from "react";
+import { ASTNode } from "./types";
+import { cleanupTokens } from "./util/cleanupTokens";
 import groupTextTokens from "./util/groupTextTokens";
 import omitListItemParagraph from "./util/omitListItemParagraph";
-import {ReactNode} from "react";
-import MarkdownIt, {Token} from "markdown-it";
-import TextToken from "./util/Token";
-import {ASTNode} from "./types";
+import { stringToTokens } from "./util/stringToTokens";
+import tokensToAST from "./util/tokensToAST";
 
 export default function parser(
   source: string,
@@ -17,7 +16,7 @@ export default function parser(
     return renderer(source);
   }
 
-  let tokens: (Token | TextToken)[] = stringToTokens(source, markdownIt);
+  let tokens: (Token)[] = stringToTokens(source, markdownIt);
   tokens = cleanupTokens(tokens);
   tokens = groupTextTokens(tokens);
   tokens = omitListItemParagraph(tokens);

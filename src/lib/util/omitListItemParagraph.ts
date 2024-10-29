@@ -1,9 +1,8 @@
-import {Token} from "markdown-it";
-import TextToken from "./Token";
+import { Token } from "markdown-it";
 
 export default function omitListItemParagraph(
-  tokens: (Token | TextToken)[],
-): (Token | TextToken)[] {
+  tokens: Token[],
+): Token[] {
   // used to ensure that we remove the correct ending paragraph token
   let depth: number | null = null;
   return tokens.filter((token, index) => {

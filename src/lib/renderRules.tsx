@@ -1,6 +1,7 @@
-import type {ReactNode} from "react";
-import type {ViewStyle} from "react-native";
+import type { ReactNode } from "react";
+import type { ViewStyle } from "react-native";
 import {
+  Image,
   Platform,
   StyleSheet,
   Text,
@@ -9,7 +10,7 @@ import {
 } from "react-native";
 
 import textStyleProps from "./data/textStyleProps";
-import type {ASTNode} from "./types";
+import type { ASTNode } from "./types";
 import hasParents from "./util/hasParents";
 import openUrl from "./util/openUrl";
 
@@ -403,7 +404,7 @@ const renderRules: RenderRules = {
       );
     }
     // @ts-expect-error - this is fine
-    return <FitImage {...imageProps} />;
+    return <Image {...imageProps} />;
   },
 
   // Text Output

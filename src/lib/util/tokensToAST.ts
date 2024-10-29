@@ -1,10 +1,9 @@
-import {Token} from "markdown-it";
-import {ASTNode} from "../types";
+import { Token } from "markdown-it";
+import { ASTNode } from "../types";
 import getTokenTypeByToken from "./getTokenTypeByToken";
 import getUniqueID from "./getUniqueID";
-import TextToken from "./Token";
 
-function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
+function createNode(token: Token, tokenIndex: number): ASTNode {
   const type = getTokenTypeByToken(token);
   const content = token.content;
 
@@ -33,7 +32,7 @@ function createNode(token: Token | TextToken, tokenIndex: number): ASTNode {
   };
 }
 
-export default function tokensToAST(tokens?: (Token | TextToken)[]): ASTNode[] {
+export default function tokensToAST(tokens?: (Token)[]): ASTNode[] {
   const stack = [];
   let children: ASTNode[] = [];
 
@@ -57,9 +56,12 @@ export default function tokensToAST(tokens?: (Token | TextToken)[]): ASTNode[] {
       if (token.nesting === 1) {
         children.push(astNode);
         stack.push(children);
-        children = [...astNode.children];
+        // @ts-expect-error read-only is not a concern
+        children = astNode.children;
       } else if (token.nesting === -1) {
-        children = stack.pop() ?? [];
+        // @ts-expect-error we know it's defined
+        children = stack.pop();
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (token.nesting === 0) {
         children.push(astNode);
       }

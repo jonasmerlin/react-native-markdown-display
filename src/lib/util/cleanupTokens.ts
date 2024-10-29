@@ -1,12 +1,11 @@
-import getTokenTypeByToken from "./getTokenTypeByToken";
+import { Token } from "markdown-it";
 import flattenInlineTokens from "./flattenInlineTokens";
+import getTokenTypeByToken from "./getTokenTypeByToken";
 import renderInlineAsText from "./renderInlineAsText";
-import {Token} from "markdown-it";
-import TextToken from "./Token";
 
 export function cleanupTokens(
-  tokens: (Token | TextToken)[],
-): (Token | TextToken)[] {
+  tokens: (Token)[],
+): (Token)[] {
   tokens = flattenInlineTokens(tokens);
   tokens.forEach((token) => {
     token.type = getTokenTypeByToken(token);
@@ -29,8 +28,8 @@ export function cleanupTokens(
    * changing a link token to a blocklink to fix issue where link tokens with
    * nested non text tokens breaks component
    */
-  const stack: (Token | TextToken)[] = [];
-  tokens = tokens.reduce<(Token | TextToken)[]>((acc, token) => {
+  const stack: (Token)[] = [];
+  tokens = tokens.reduce<(Token)[]>((acc, token) => {
     if (token.type === "link" && token.nesting === 1) {
       stack.push(token);
     } else if (

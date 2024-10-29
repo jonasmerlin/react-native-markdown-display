@@ -1,6 +1,5 @@
-import {Token} from "markdown-it";
-import {RenderRules} from "../renderRules";
-import TextToken from "./Token";
+import { Token } from "markdown-it";
+import { RenderRules } from "../renderRules";
 
 const regSelectOpenClose = /_open|_close/g;
 
@@ -28,7 +27,7 @@ const regSelectOpenClose = /_open|_close/g;
  * @return {String}
  */
 export default function getTokenTypeByToken(
-  token: Token | TextToken,
+  token: Token,
 ): keyof RenderRules {
   let cleanedType: keyof RenderRules | "heading" = "unknown";
 
@@ -40,10 +39,13 @@ export default function getTokenTypeByToken(
 
   switch (cleanedType) {
     case "heading": {
-      return `${cleanedType}${token.tag.substring(1) as "1" | "2" | "3" | "4" | "5" | "6"}`;
+      cleanedType = `${cleanedType}${token.tag.substring(1) as "1" | "2" | "3" | "4" | "5" | "6"}`;
+      break;
     }
     default: {
-      return cleanedType;
+      break;
     }
   }
+
+  return cleanedType;
 }
